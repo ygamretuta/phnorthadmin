@@ -42,7 +42,7 @@ MEDIA_URL = '/uploads/'
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 DATABASES = {
