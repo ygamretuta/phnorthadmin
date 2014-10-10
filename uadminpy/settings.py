@@ -1,33 +1,10 @@
-"""
-Django settings for uadminpy project.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/1.7/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.7/ref/settings/
-"""
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import dj_database_url
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'mzocbzyilc=7-@4ss-_o_z40q$nglz-(^0v^(r^lr*(s8+r_te'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-TEMPLATE_DEBUG = True
-
-ALLOWED_HOSTS = []
-
-
-# Application definition
+ALLOWED_HOSTS = ['']
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -52,52 +29,65 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'uadminpy.urls'
-
 WSGI_APPLICATION = 'uadminpy.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
-# Internationalization
-# https://docs.djangoproject.com/en/1.7/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.7/howto/static-files/
+MEDIA_ROOT = 'uploads'
+MEDIA_URL = '/uploads/'
 
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
+
+DEBUG = False
+TEMPLATE_DEBUG = DEBUG
+
+DATABASES = {
+    'default': dj_database_url.config()
+}
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 HEROKU_BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATICFILES_DIRS = (
     os.path.join(HEROKU_BASE_DIR, 'static'),
 )
 
-MEDIA_ROOT = 'uploads'
-MEDIA_URL = '/uploads/'
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
 
-# heroku
-import dj_database_url
-DATABASES['default'] = dj_database_url.config()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-ALLOWED_HOSTS = ['*']
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+    'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    }
+}
 
 
 
+try:
+    from uadminpy.local_settings import *
+except ImportError:
+    pass
