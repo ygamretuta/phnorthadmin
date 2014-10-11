@@ -4,7 +4,7 @@ import dj_database_url
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'mzocbzyilc=7-@4ss-_o_z40q$nglz-(^0v^(r^lr*(s8+r_te'
 
-ALLOWED_HOSTS = ['']
+ALLOWED_HOSTS = ['phnorthadmin.herokuapp.com']
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -36,13 +36,13 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-MEDIA_ROOT = 'uploads'
-MEDIA_URL = '/uploads/'
+MEDIA_ROOT = 'media'
+MEDIA_URL = '/media/'
 
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 DATABASES = {
