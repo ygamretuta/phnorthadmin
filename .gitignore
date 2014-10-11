@@ -57,6 +57,5 @@ target/
 .idea/
 
 uadminpy/local_settings.py
-media/uploads/
 media/cache/
 *.sqlite3
