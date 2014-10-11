@@ -5,3 +5,7 @@ class MemberResource(ModelResource):
     class Meta:
         queryset = Member.objects.all()
         allowed_methods = ['get']
+
+    def dehydrate(self, bundle):
+        bundle.data['thumb'] = ''
+        return bundle
