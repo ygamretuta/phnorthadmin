@@ -8,7 +8,7 @@ class MemberAdmin(admin.ModelAdmin):
 
     def thumb(self, obj):
         if obj.photo:
-            t = get_thumbnail(obj.photo, '80x80', crop='center', quality=99)
+            t = get_thumbnail(obj.photo, '100x100', crop='center', quality=99)
             return u'<img src="%s"/>' % t.url
         else:
             return u'None'
